@@ -12,7 +12,7 @@
   --plum-800: #2f1c45;
   --plum-700: #3d2660;
   --plum-600: #53378a;
-  --plum-500: #6b4daa;h
+  --plum-500: #6b4daa;
   --plum-400: #8b6fc4;
   --plum-300: #b09ada;
   --plum-200: #d0c0eb;
@@ -77,6 +77,19 @@ body {
 }
 .gate-input-wrap input::placeholder { color: var(--grey-600); letter-spacing: 0.1em; }
 .gate-input-wrap input:focus { border-color: var(--plum-500); box-shadow: 0 0 20px rgba(107, 77, 170, 0.15); }
+.gate-btn {
+  width: 280px; margin-top: 0.75rem; padding: 0.7rem 1.2rem;
+  background: rgba(107, 77, 170, 0.2);
+  border: 1px solid var(--plum-600); border-radius: 8px;
+  color: var(--plum-300); font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.gate-btn:hover, .gate-btn:active {
+  background: rgba(107, 77, 170, 0.35);
+  color: var(--plum-200);
+  border-color: var(--plum-500);
+}
 .gate-error { margin-top: 1rem; font-size: 0.8rem; color: #c47a7a; opacity: 0; transition: opacity 0.3s; }
 .gate-error.show { opacity: 1; }
 #app { display: none; min-height: 100vh; }
@@ -90,11 +103,6 @@ body {
 .sidebar-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem; font-weight: 500; color: var(--plum-200); letter-spacing: 0.05em;
-}
-.sidebar-badge {
-  display: inline-block; font-size: 0.6rem; text-transform: uppercase;
-  letter-spacing: 0.15em; color: var(--plum-400);
-  background: rgba(107, 77, 170, 0.12); padding: 2px 8px; border-radius: 4px; margin-top: 0.3rem;
 }
 .search-box { padding: 0 1.25rem; margin-bottom: 1.5rem; }
 .search-box input {
@@ -195,6 +203,7 @@ body {
   <div class="gate-input-wrap">
     <input type="password" id="gate-pw" placeholder="Enter passphrase" autocomplete="off" />
   </div>
+  <button class="gate-btn" id="gate-btn">Enter</button>
   <div class="gate-error" id="gate-error">That's not it. Try again.</div>
 </div>
 <div id="app">
@@ -217,7 +226,7 @@ const WIKI = {
       category: "Main Cast", color: "#8b6fc4",
       tags: ["Renbao", "Protagonist", "Garden-Linked"],
       info: { "Full Name": "Nemo [PLACEHOLDER]", "Species": "Renbao", "Age": "[TBD]", "Affiliation": "Signy Ala Academy", "Status": "Active", "Blood Type": "[TBD]" },
-      bio: "<p>Central figure of the narrative. Nemo's complexity is the axis the entire world turns on.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      bio: "<p>Central figure of the narrative. Nemo's complexity is the axis the entire world turns on.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       abilities: "<p>[Placeholder for ability details.]</p>",
       relationships: [
         { name: "Aya", id: "aya", type: "Complex / Central Bond", color: "#c47a7a" },
@@ -231,7 +240,7 @@ const WIKI = {
       category: "Main Cast", color: "#c47a7a",
       tags: ["Primordial", "Central Figure"],
       info: { "Full Name": "Aya [PLACEHOLDER]", "Species": "[TBD]", "Age": "Ancient", "Affiliation": "[TBD]", "Status": "Active", "Domain": "[TBD]" },
-      bio: "<p>Aya is a central figure in the mythology.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      bio: "<p>Aya is a central figure in the mythology.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       abilities: "<p>[Placeholder for abilities.]</p>",
       relationships: [
         { name: "Nemo", id: "nemo", type: "Complex / Central Bond", color: "#8b6fc4" },
@@ -244,7 +253,7 @@ const WIKI = {
       category: "Main Cast", color: "#7ac4a8",
       tags: ["Key Player", "Unpredictable"],
       info: { "Full Name": "Sheba [PLACEHOLDER]", "Species": "[TBD]", "Age": "[TBD]", "Affiliation": "[TBD]", "Status": "Active" },
-      bio: "<p>Sheba's chaos isn't random — it has architecture.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      bio: "<p>Sheba's chaos isn't random \u2014 it has architecture.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       abilities: "<p>[Placeholder for abilities.]</p>",
       relationships: [
         { name: "Nemo", id: "nemo", type: "[Relationship TBD]", color: "#8b6fc4" },
@@ -257,7 +266,7 @@ const WIKI = {
       category: "Supporting Cast", color: "#c4b87a",
       tags: ["Signy Ala Academy", "Head Dean", "Authority Figure"],
       info: { "Full Name": "Damley Perry", "Species": "[TBD]", "Title": "Head Dean", "Affiliation": "Signy Ala Academy", "Status": "Active" },
-      bio: "<p>Head Dean of Signy Ala Academy.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      bio: "<p>Head Dean of Signy Ala Academy.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       abilities: "<p>[Placeholder for abilities.]</p>",
       relationships: [
         { name: "Nemo", id: "nemo", type: "Mentor / Dean", color: "#8b6fc4" }
@@ -267,11 +276,11 @@ const WIKI = {
   ],
   lore: [
     {
-      id: "garden", name: "The Garden", epithet: "Ard and Dubh — the split that shaped everything",
+      id: "garden", name: "The Garden", epithet: "Ard and Dubh \u2014 the split that shaped everything",
       category: "Locations", color: "#6b8a5e",
       tags: ["Worldbuilding", "Leylines", "Sacred"],
-      info: { "Type": "Primordial Location", "Status": "Split — Ard / Dubh", "Significance": "Central to mythology" },
-      bio: "<p>The Garden's split between Ard and Dubh is foundational worldbuilding.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      info: { "Type": "Primordial Location", "Status": "Split \u2014 Ard / Dubh", "Significance": "Central to mythology" },
+      bio: "<p>The Garden's split between Ard and Dubh is foundational worldbuilding.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       relationships: [
         { name: "Aya", id: "aya", type: "Connected", color: "#c47a7a" },
         { name: "Nemo", id: "nemo", type: "Linked", color: "#8b6fc4" }
@@ -282,7 +291,7 @@ const WIKI = {
       category: "Species", color: "#8a6b5e",
       tags: ["Species", "Biology", "Worldbuilding"],
       info: { "Type": "Species", "Notable Members": "Nemo", "Key Traits": "[Combustion-based physiology]" },
-      bio: "<p>The Renbao species profile — built from physiology up.</p><p>[Placeholder content — to be replaced with real wiki data.]</p>",
+      bio: "<p>The Renbao species profile \u2014 built from physiology up.</p><p>[Placeholder content \u2014 to be replaced with real wiki data.]</p>",
       relationships: [
         { name: "Nemo", id: "nemo", type: "Member", color: "#8b6fc4" }
       ]
@@ -292,69 +301,71 @@ const WIKI = {
 const PASS = "werewolf3.";
 const gateEl = document.getElementById('gate');
 const pwInput = document.getElementById('gate-pw');
+const gateBtn = document.getElementById('gate-btn');
 const gateError = document.getElementById('gate-error');
 const appEl = document.getElementById('app');
-pwInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    if (pwInput.value.toLowerCase().trim() === PASS) {
-      gateEl.classList.add('unlocked');
-      setTimeout(() => { gateEl.style.display = 'none'; appEl.classList.add('visible'); }, 600);
-    } else {
-      gateError.classList.add('show');
-      pwInput.value = '';
-      setTimeout(() => gateError.classList.remove('show'), 2000);
-    }
+function tryUnlock() {
+  if (pwInput.value.toLowerCase().trim() === PASS) {
+    gateEl.classList.add('unlocked');
+    setTimeout(function() { gateEl.style.display = 'none'; appEl.classList.add('visible'); }, 600);
+  } else {
+    gateError.classList.add('show');
+    pwInput.value = '';
+    setTimeout(function() { gateError.classList.remove('show'); }, 2000);
   }
-});
+}
+pwInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryUnlock(); });
+gateBtn.addEventListener('click', tryUnlock);
 pwInput.focus();
-const allEntries = [...WIKI.characters, ...WIKI.lore];
-function buildNav(filter = '') {
-  const navList = document.getElementById('nav-list');
-  const sections = {};
-  allEntries.forEach(entry => {
-    const cat = entry.category || 'Other';
+var allEntries = [].concat(WIKI.characters, WIKI.lore);
+function buildNav(filter) {
+  filter = filter || '';
+  var navList = document.getElementById('nav-list');
+  var sections = {};
+  allEntries.forEach(function(entry) {
+    var cat = entry.category || 'Other';
     if (!sections[cat]) sections[cat] = [];
     sections[cat].push(entry);
   });
-  let html = '';
-  for (const [section, entries] of Object.entries(sections)) {
+  var html = '';
+  for (var section in sections) {
     html += '<div class="nav-section"><div class="nav-section-label">' + section + '</div>';
-    entries.forEach(entry => {
-      const hidden = filter && !entry.name.toLowerCase().includes(filter) && !(entry.tags || []).some(t => t.toLowerCase().includes(filter));
+    sections[section].forEach(function(entry) {
+      var hidden = filter && !entry.name.toLowerCase().includes(filter) && !(entry.tags || []).some(function(t) { return t.toLowerCase().includes(filter); });
       html += '<div class="nav-item ' + (hidden ? 'hidden' : '') + '" data-id="' + entry.id + '" onclick="showEntry(\'' + entry.id + '\')"><span class="nav-dot" style="background:' + entry.color + '"></span>' + entry.name + '</div>';
     });
     html += '</div>';
   }
   navList.innerHTML = html;
 }
-document.getElementById('search').addEventListener('input', e => { buildNav(e.target.value.toLowerCase().trim()); });
+document.getElementById('search').addEventListener('input', function(e) { buildNav(e.target.value.toLowerCase().trim()); });
 function showHome() {
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  const content = document.getElementById('content');
-  content.innerHTML = '<div class="home-hero"><h1>The Plot Thickens</h1><p>A private wiki for the world, its people, and every unhinged lore decision that got us here.</p><div class="home-stats"><div class="home-stat"><div class="home-stat-num">' + WIKI.characters.length + '</div><div class="home-stat-label">Characters</div></div><div class="home-stat"><div class="home-stat-num">' + WIKI.lore.length + '</div><div class="home-stat-label">Lore Entries</div></div><div class="home-stat"><div class="home-stat-num">' + allEntries.reduce((a, e) => a + (e.tags || []).length, 0) + '</div><div class="home-stat-label">Tags</div></div></div></div><div class="home-divider"></div><div class="recent-section"><h2>All Entries</h2><div class="recent-grid">' + allEntries.map(e => '<div class="recent-card" onclick="showEntry(\'' + e.id + '\')"><div class="recent-card-name" style="display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:' + e.color + ';flex-shrink:0;"></span>' + e.name + '</div><div class="recent-card-sub">' + e.category + '</div></div>').join('') + '</div></div>';
+  document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
+  var content = document.getElementById('content');
+  content.innerHTML = '<div class="home-hero"><h1>The Plot Thickens</h1><p>A private wiki for the world, its people, and every unhinged lore decision that got us here.</p><div class="home-stats"><div class="home-stat"><div class="home-stat-num">' + WIKI.characters.length + '</div><div class="home-stat-label">Characters</div></div><div class="home-stat"><div class="home-stat-num">' + WIKI.lore.length + '</div><div class="home-stat-label">Lore Entries</div></div><div class="home-stat"><div class="home-stat-num">' + allEntries.reduce(function(a, e) { return a + (e.tags || []).length; }, 0) + '</div><div class="home-stat-label">Tags</div></div></div></div><div class="home-divider"></div><div class="recent-section"><h2>All Entries</h2><div class="recent-grid">' + allEntries.map(function(e) { return '<div class="recent-card" onclick="showEntry(\'' + e.id + '\')"><div class="recent-card-name" style="display:flex;align-items:center;gap:6px;"><span style="width:6px;height:6px;border-radius:50%;background:' + e.color + ';flex-shrink:0;"></span>' + e.name + '</div><div class="recent-card-sub">' + e.category + '</div></div>'; }).join('') + '</div></div>';
 }
 function showEntry(id) {
-  const entry = allEntries.find(e => e.id === id);
+  var entry = allEntries.find(function(e) { return e.id === id; });
   if (!entry) return;
-  document.querySelectorAll('.nav-item').forEach(el => { el.classList.toggle('active', el.dataset.id === id); });
-  const content = document.getElementById('content');
-  let bioHtml = entry.bio || '';
-  allEntries.forEach(other => {
+  document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.toggle('active', el.dataset.id === id); });
+  var content = document.getElementById('content');
+  var bioHtml = entry.bio || '';
+  allEntries.forEach(function(other) {
     if (other.id !== entry.id) {
-      const regex = new RegExp('\\b(' + other.name + ')\\b', 'g');
+      var regex = new RegExp('\\b(' + other.name + ')\\b', 'g');
       bioHtml = bioHtml.replace(regex, '<span class="cross-ref" onclick="showEntry(\'' + other.id + '\')">$1</span>');
     }
   });
-  let html = '<div class="entry-page"><div class="entry-back" onclick="showHome()">&#8592; Back to The Plot</div><div class="entry-header"><div class="entry-category">' + entry.category + '</div><div class="entry-name">' + entry.name + '</div>' + (entry.epithet ? '<div class="entry-epithet">' + entry.epithet + '</div>' : '') + (entry.tags ? '<div class="entry-tags">' + entry.tags.map(t => '<span class="entry-tag">' + t + '</span>').join('') + '</div>' : '') + '</div>';
+  var html = '<div class="entry-page"><div class="entry-back" onclick="showHome()">\u2190 Back to The Plot</div><div class="entry-header"><div class="entry-category">' + entry.category + '</div><div class="entry-name">' + entry.name + '</div>' + (entry.epithet ? '<div class="entry-epithet">' + entry.epithet + '</div>' : '') + (entry.tags ? '<div class="entry-tags">' + entry.tags.map(function(t) { return '<span class="entry-tag">' + t + '</span>'; }).join('') + '</div>' : '') + '</div>';
   if (entry.info) {
-    html += '<div class="entry-section"><div class="entry-section-title">Overview</div><div class="info-grid">' + Object.entries(entry.info).map(([k, v]) => '<div class="info-row"><span class="info-label">' + k + '</span><span class="info-value">' + v + '</span></div>').join('') + '</div></div>';
+    html += '<div class="entry-section"><div class="entry-section-title">Overview</div><div class="info-grid">' + Object.entries(entry.info).map(function(pair) { return '<div class="info-row"><span class="info-label">' + pair[0] + '</span><span class="info-value">' + pair[1] + '</span></div>'; }).join('') + '</div></div>';
   }
   html += '<div class="entry-section"><div class="entry-section-title">Biography</div><div class="entry-text">' + bioHtml + '</div></div>';
   if (entry.abilities) {
     html += '<div class="entry-section"><div class="entry-section-title">Abilities</div><div class="entry-text">' + entry.abilities + '</div></div>';
   }
   if (entry.relationships && entry.relationships.length > 0) {
-    html += '<div class="entry-section"><div class="entry-section-title">Relationships</div><div class="rel-list">' + entry.relationships.map(r => '<div class="rel-item" onclick="showEntry(\'' + r.id + '\')"><span class="rel-dot" style="background:' + r.color + '"></span><span class="rel-name">' + r.name + '</span><span class="rel-type">' + r.type + '</span></div>').join('') + '</div></div>';
+    html += '<div class="entry-section"><div class="entry-section-title">Relationships</div><div class="rel-list">' + entry.relationships.map(function(r) { return '<div class="rel-item" onclick="showEntry(\'' + r.id + '\')"><span class="rel-dot" style="background:' + r.color + '"></span><span class="rel-name">' + r.name + '</span><span class="rel-type">' + r.type + '</span></div>'; }).join('') + '</div></div>';
   }
   if (entry.timeline) {
     html += '<div class="entry-section"><div class="entry-section-title">Timeline</div><div class="entry-text">' + entry.timeline + '</div></div>';
